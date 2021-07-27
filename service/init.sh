@@ -1,5 +1,6 @@
 SYSSERVICEPATH="/lib/systemd/system"
-SERVICEPATH="$SYSSERVICEPATH/tgbot-py.service"
+SERVICENAME="tgbot-py.service"
+SERVICEPATH="$SYSSERVICEPATH/$SERVICENAME"
 MAINPATH=$(realpath ./../main.py)
 
 PYTHONPATH=$(which python3)
@@ -23,6 +24,8 @@ StandardInput=tty-force
 [Install]
 WantedBy=multi-user.target"
 
-sudo echo "$content" > "$SERVICEPATH"
+sudo echo "$content" > "$SERVICENAME"
+sudo cp "$SERVICENAME" "$SERVICEPATH"
+rm "$SERVICENAME"
 
 sudo systemctl daemon-reload
